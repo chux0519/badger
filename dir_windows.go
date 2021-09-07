@@ -105,18 +105,6 @@ func (g *directoryLockGuard) release() error {
 	return syscall.CloseHandle(g.h)
 }
 
-// Windows doesn't support syncing directories through network(like SMB). See
+// Windows doesn't support syncing directories to the file system. See
 // https://github.com/dgraph-io/badger/issues/699#issuecomment-504133587 for more details.
-func syncDir(dir string) error {
-	f, err := openDir(dir)
-	if err != nil {
-		return y.Wrapf(err, "While opening directory: %s.", dir)
-	}
-
-	err = f.Sync()
-	closeErr := f.Close()
-	if err != nil {
-		return y.Wrapf(err, "While syncing directory: %s.", dir)
-	}
-	return y.Wrapf(closeErr, "While closing directory: %s.", dir)
-}
+func syncDir(dir string) error { return nil }
