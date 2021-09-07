@@ -1,4 +1,4 @@
-// +build dragonfly freebsd plan9
+// +build windows
 
 /*
  * Copyright 2017 Dgraph Labs, Inc. and Contributors
@@ -18,8 +18,8 @@
 
 package y
 
-import "syscall"
+const _FILE_FLAG_WRITE_THROUGH uint32 = 0x80000000
 
 func init() {
-	datasyncFileFlag = syscall.O_SYNC
+	datasyncFileFlag = _FILE_FLAG_WRITE_THROUGH
 }
